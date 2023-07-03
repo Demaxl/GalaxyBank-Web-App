@@ -1,0 +1,88 @@
+$color: #45CFDD;
+
+.logo {
+  text-decoration: none;
+  color: $color;
+}
+
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f6f7f9;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+  }
+  
+  header {
+	background: linear-gradient(to right, #a173d1, #674ea3);
+	color: #fff;
+	// padding: 20px;
+  }
+  
+  header h1 {
+	margin: 0;
+  }
+  
+.nav-link.active {
+	background-color: black !important;
+	color: black;
+}
+
+  main {
+	flex: 1;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .balance {
+	background: linear-gradient(to right, #fff, #e1d2f7);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .balance h2 {
+	margin-top: 0;
+  }
+  
+  .recent-transactions {
+	margin-top: 20px;
+	background: linear-gradient(to right, #fff, #e1d2f7);
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recent-transactions h2 {
+	margin-top: 0;
+  }
+  
+  .recent-transactions ul {
+	list-style-type: none;
+	padding: 0;
+  }
+  
+  .recent-transactions li {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+  }
+  
+  .transaction-type {
+	font-weight: bold;
+  }
+  
+  .transaction-amount {
+	float: right;
+  }
+  
+  footer {
+	background: linear-gradient(to right, #a173d1, #674ea3);
+	color: #fff;
+	padding: 10px;
+	text-align: center;
+  }
+

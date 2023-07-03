@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <section class="balance">
+        <h2>Your Balance</h2>
+        <h3>$10,000</h3>
+    </section>
+
+    <section class="recent-transactions">
+        <h2>Recent Transactions</h2>
+        <ul>
+        <li>
+            <span class="transaction-type">Deposit</span>
+            <span class="transaction-amount">+$500</span>
+        </li>
+        <li>
+            <span class="transaction-type">Withdrawal</span>
+            <span class="transaction-amount">-$200</span>
+        </li>
+        <li>
+            <span class="transaction-type">Transfer</span>
+            <span class="transaction-amount">-$1000</span>
+        </li>
+        <!-- Add more transaction items here -->
+        </ul>
+    </section>
+{% endblock body %}
