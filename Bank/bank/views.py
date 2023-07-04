@@ -5,4 +5,6 @@ from django.views.generic import View
 
 class HomePageView(View):
     def get(self, request):
-        return render(request, "home.html")
+        return render(request, "home.html", {
+            "active_page": "home"
+        })

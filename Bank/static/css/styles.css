@@ -4,7 +4,6 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
   background-color: #f6f7f9;
   margin: 0;
   padding: 0;
@@ -80,4 +79,13 @@ footer {
   color: #fff;
   padding: 10px;
   text-align: center;
+}
+
+.custom-outline {
+  border-color: #674ea3 !important;
+  color: #a173d1 !important;
+}
+.custom-outline:hover {
+  background-color: #a173d1 !important; /* Replace with your desired color */
+  color: #FFFFFF !important; /* Replace with your desired color */
 }/*# sourceMappingURL=styles.css.map */
