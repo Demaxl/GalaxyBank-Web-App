@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-6 col-md-8">
+                <img src="{{ user.profile.image.url }}" alt="Profile Image" class="card-img-top rounded-circle" style="width: 150px;">
+                <div class="card-body">
+                    <h2 class="card-title">{{ user.profile.first_name }} {{ user.profile.last_name }}</h2>
+                    <div class="mt-4 d-flex justify-content-between align-items-start">
+                        <h4 style="padding:20px 0">Account Balance:</h4> 
+                        <h4 class="balance ">${{ user.profile.balance|floatformat:2 }}</h4>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-between align-items-start">
+                        <h4 style="padding:20px 0">Payment PIN:</h4> 
+                        <div class="d-flex align-items-center">
+                            <h4 class="balance">●●●●</h4>
+                            <span class="ms-3">
+                                <button class="btn btn-outline-info custom-outline mt-3" data-bs-toggle="modal" data-bs-target="#pinModal">Change PIN</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline-info custom-outline mt-3">Edit Profile</button>
+            
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="pinModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Change payment PIN</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="" id="changePinForm" class="" data-api-url="{{ request.path }}">
+                    {% csrf_token %}
+                    <div class="mb-3 mt-3">
+                        <label for="old-pin" class="form-label">Current PIN:</label>
+                        <input type="password" class="form-control" id="old-pin" name="old-pin" maxlength=4 required autofocus>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-pin" class="form-label">New PIN:</label>
+                        <input type="password" class="form-control" id="new-pin" name="new-pin" maxlength=4 required>
+                        <div class="invalid-feedback">New PIN cannot be the same as old</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm-new-pin" class="form-label">Confirm PIN:</label>
+                        <input type="password" class="form-control" id="confirm-new-pin" maxlength=4 name="confirm-new-pin" required>
+                        <div class="invalid-feedback">Both PIN must match</div>
+                    </div>
+                    <button type="submit" id="change-pin-btn" class="btn btn-outline-info custom-outline">Change PIN</button>
+                </form>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" id="pin-modal-cancel-btn" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+            </div>
+      
+          </div>
+        </div>
+      </div>
+{% endblock body %}

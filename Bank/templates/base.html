@@ -42,6 +42,9 @@
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
                             <li class="nav-item">
+                                <a class="nav-link" href="{% url 'profile' user.username %}">Profile</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                             </li>
                         {% else %}
@@ -73,6 +76,6 @@
             <p>&copy; 2023 Galaxy Bank. All rights reserved.</p>
         </footer>
     </div>
-    <script src="{% static 'js/animations.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

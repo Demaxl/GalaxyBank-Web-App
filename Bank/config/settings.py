@@ -10,19 +10,25 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import json, os
 from pathlib import Path
 from django.contrib.messages import constants as messages
 
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+with open(BASE_DIR.joinpath("config.json"), "r") as file:
+    SECRETS = json.load(file)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d%4p(5=qv(s=as_o%vjy2xvamd7=%_pc0b^yuvs%o!i!vds=bo'
+SECRET_KEY = SECRETS['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -140,3 +146,12 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 MESSAGE_TAGS = {
     messages.ERROR: "danger"
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+MEDIA_URL = "/media/"
+
+USE_THOUSAND_SEPARATOR = True
+
+
+LOGIN_URL = "login"

@@ -88,4 +88,8 @@ footer {
 .custom-outline:hover {
   background-color: #a173d1 !important; /* Replace with your desired color */
   color: #FFFFFF !important; /* Replace with your desired color */
+}
+.custom-outline:active {
+  background-color: #a173d1 !important; /* Replace with your desired color */
+  color: #FFFFFF !important; /* Replace with your desired color */
 }/*# sourceMappingURL=styles.css.map */
