@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 
 {% block body %}
+
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-lg-6 col-md-8">
@@ -21,50 +24,92 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-outline-info custom-outline mt-3">Edit Profile</button>
+                <button class="btn btn-outline-info custom-outline mt-3" data-bs-toggle="modal" data-bs-target="#edit-profile-modal">
+                    Edit Profile
+                </button>
             
             </div>
         </div>
     </div>
+
+    <!-- Change PIN Modal -->
     <div class="modal fade" id="pinModal">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-      
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Change payment PIN</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Change payment PIN</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="" id="changePinForm" class="" data-api-url="{{ request.path }}">
+                        {% csrf_token %}
+                        <div class="mb-3 mt-3">
+                            <label for="old-pin" class="form-label">Current PIN:</label>
+                            <input type="password" class="form-control" id="old-pin" name="old-pin" maxlength=4 required autofocus>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-pin" class="form-label">New PIN:</label>
+                            <input type="password" class="form-control" id="new-pin" name="new-pin" maxlength=4 required>
+                            <div class="invalid-feedback">New PIN cannot be the same as old</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-new-pin" class="form-label">Confirm PIN:</label>
+                            <input type="password" class="form-control" id="confirm-new-pin" maxlength=4 name="confirm-new-pin" required>
+                            <div class="invalid-feedback">Both PIN must match</div>
+                        </div>
+                        <button type="submit" id="change-pin-btn" class="btn btn-outline-info custom-outline">Change PIN</button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="pin-modal-cancel-btn" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                </div>
             </div>
-      
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="" id="changePinForm" class="" data-api-url="{{ request.path }}">
-                    {% csrf_token %}
-                    <div class="mb-3 mt-3">
-                        <label for="old-pin" class="form-label">Current PIN:</label>
-                        <input type="password" class="form-control" id="old-pin" name="old-pin" maxlength=4 required autofocus>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="new-pin" class="form-label">New PIN:</label>
-                        <input type="password" class="form-control" id="new-pin" name="new-pin" maxlength=4 required>
-                        <div class="invalid-feedback">New PIN cannot be the same as old</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm-new-pin" class="form-label">Confirm PIN:</label>
-                        <input type="password" class="form-control" id="confirm-new-pin" maxlength=4 name="confirm-new-pin" required>
-                        <div class="invalid-feedback">Both PIN must match</div>
-                    </div>
-                    <button type="submit" id="change-pin-btn" class="btn btn-outline-info custom-outline">Change PIN</button>
-                </form>
-            </div>
-      
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" id="pin-modal-cancel-btn" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-            </div>
-      
-          </div>
         </div>
-      </div>
+    </div>
+
+    
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="edit-profile-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+        
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Profile</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+        
+                <div class="modal-body">
+                    <form method="post" action="{{ request.path }}" enctype="multipart/form-data">
+                        {% csrf_token %} 
+                        <div class="image-container">
+                            <img src="{{ user.profile.image.url }}" alt="Profile Image" class="card-img-top rounded-circle" style="width: 250px;">
+                            <div class="overlay">Choose Image</div>
+                                <input type="file" name="image" id="profile-image" accept="image/*">
+                          </div>
+                        
+                          
+                        <div class="mb-3 mt-3">
+                            <label for="first_name" class="form-label">First Name:</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.profile.first_name }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Last Name:</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.profile.last_name }}" required>
+                        </div>
+
+                        <input type="submit" class="btn btn-outline-success custom-outline" value="Update">
+                    </form>
+                </div>
+        
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+        
+            </div>
+        </div>
+    </div>
 {% endblock body %}

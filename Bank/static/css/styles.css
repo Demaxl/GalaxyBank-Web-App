@@ -92,4 +92,42 @@ footer {
 .custom-outline:active {
   background-color: #a173d1 !important; /* Replace with your desired color */
   color: #FFFFFF !important; /* Replace with your desired color */
+}
+
+.image-container {
+  position: relative;
+  width: 50%;
+  max-width: 300px;
+}
+.image-container .img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.image-container:hover {
+  cursor: pointer;
+}
+.image-container:hover .overlay {
+  opacity: 1;
+}
+
+/* Make the image to responsive */
+/* The overlay effect - lays on top of the container and over the image */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  width: 100%;
+  transition: 0.5s ease;
+  opacity: 0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+#profile-image {
+  display: none;
 }/*# sourceMappingURL=styles.css.map */
