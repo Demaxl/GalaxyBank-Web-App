@@ -1,0 +1,16 @@
+<div class="image-container">
+    <img src="{{ user.profile.image.url }}" alt="Profile Image" class="card-img-top rounded-circle" style="width: 250px;">
+    <div class="overlay">Choose Image</div>
+        <input type="file" name="image" id="profile-image" accept="image/*">
+  </div>
+
+  
+<div class="mb-3 mt-3">
+    <label for="first_name" class="form-label">First Name:</label>
+    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.profile.first_name }}" required>
+</div>
+
+<div class="mb-3">
+    <label for="last_name" class="form-label">Last Name:</label>
+    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.profile.last_name }}" required>
+</div>

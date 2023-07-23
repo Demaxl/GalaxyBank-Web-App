@@ -49,16 +49,7 @@
                             <input type="password" class="form-control" id="old-pin" name="old-pin" maxlength=4 required autofocus>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <div class="mb-3">
-                            <label for="new-pin" class="form-label">New PIN:</label>
-                            <input type="password" class="form-control" id="new-pin" name="new-pin" maxlength=4 required>
-                            <div class="invalid-feedback">New PIN cannot be the same as old</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirm-new-pin" class="form-label">Confirm PIN:</label>
-                            <input type="password" class="form-control" id="confirm-new-pin" maxlength=4 name="confirm-new-pin" required>
-                            <div class="invalid-feedback">Both PIN must match</div>
-                        </div>
+                        {% include 'pin_form.html'  with method="Update" %}
                         <button type="submit" id="change-pin-btn" class="btn btn-outline-info custom-outline">Change PIN</button>
                     </form>
                 </div>
@@ -84,22 +75,7 @@
                 <div class="modal-body">
                     <form method="post" action="{{ request.path }}" enctype="multipart/form-data">
                         {% csrf_token %} 
-                        <div class="image-container">
-                            <img src="{{ user.profile.image.url }}" alt="Profile Image" class="card-img-top rounded-circle" style="width: 250px;">
-                            <div class="overlay">Choose Image</div>
-                                <input type="file" name="image" id="profile-image" accept="image/*">
-                          </div>
-                        
-                          
-                        <div class="mb-3 mt-3">
-                            <label for="first_name" class="form-label">First Name:</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.profile.first_name }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="last_name" class="form-label">Last Name:</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.profile.last_name }}" required>
-                        </div>
+                        {% include 'profile_form.html' %}
 
                         <input type="submit" class="btn btn-outline-success custom-outline" value="Update">
                     </form>
@@ -122,13 +98,20 @@
                 </div>
             
                 <div class="modal-body">
-                    {{ form|crispy }}
+                    <form action="#" onsubmit="return false;">
+                        {% csrf_token %}
+                        {% include 'profile_form.html' %}
+                        {% include 'pin_form.html' %}
+
+                        <button type="submit" class="btn btn-outline-info custom-outline">Create Profile</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        {% if user.profile.newlyCreated %}
             $(function () {
                 $('#create-profile-modal').modal({
                     backdrop: 'static',
@@ -136,6 +119,7 @@
                   });
                 $("#create-profile-modal").modal("show");
             });
+        {% endif %}
         
         
 
