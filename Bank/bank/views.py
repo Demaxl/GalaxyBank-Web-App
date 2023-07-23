@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 from django.views.generic import View
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 
 class HomePageView(View):

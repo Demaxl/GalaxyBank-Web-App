@@ -5,6 +5,10 @@ function message(text, type) {
             ${text}
         </div>`)
 }
+$(function () {
+    
+});
+
 
 $(function () {
     $("#old-pin, #new-pin, #confirm-new-pin").on("input", function () {
@@ -101,7 +105,6 @@ $(function () {
         document.getElementById("profile-image").click()
         
     })
-
 
 
 

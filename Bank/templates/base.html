@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -76,6 +77,23 @@
                 {% endfor %}
             {% endif %}
                 {% block body %}{% endblock body %}
+
+                    
+            {% comment %} <!-- Create Profile Modal -->
+            <div class="modal fade" id="create-profile-modal" data-backdrop="static">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Complete your Profile</h4>
+                        </div>
+                    
+                        <div class="modal-body">
+                            {{ createForm|crispy }}
+                        </div>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+
         </main>
 
         <footer>
@@ -83,5 +101,10 @@
         </footer>
     </div>
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        {% if user.is_authenticated and user.profile.newlyCreated and request.resolver_match.view_name != 'profile' %}
+            window.location.assign("{% url 'profile' request.user.username %}")
+        {% endif %}
+    </script>
 </body>
 </html>

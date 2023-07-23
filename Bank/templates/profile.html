@@ -112,4 +112,32 @@
             </div>
         </div>
     </div>
+
+    <!-- Create Profile Modal -->
+    <div class="modal fade" id="create-profile-modal" data-backdrop="static">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Complete your Profile</h4>
+                </div>
+            
+                <div class="modal-body">
+                    {{ form|crispy }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            $(function () {
+                $('#create-profile-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                  });
+                $("#create-profile-modal").modal("show");
+            });
+        
+        
+
+    </script>
 {% endblock body %}
