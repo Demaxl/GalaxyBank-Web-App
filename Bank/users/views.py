@@ -77,10 +77,17 @@ class ProfileView(LoginRequiredMixin, UserPassesTestMixin, DetailView, FormView)
         return HttpResponse(status=204)
     
     def post(self, request, *args, **kwargs):
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        action = request.POST['action']
+        if action == "update":
+            form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        else:
+            form = ProfileCreateForm(request.POST, request.FILES, instance=request.user.profile)
 
         if form.is_valid():
             form.save()
+            request.user.profile.newlyCreated = False
+            request.user.profile.save()
+
             messages.success(request, "Account info updated")
         return HttpResponseRedirect(request.path)
 

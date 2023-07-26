@@ -76,6 +76,8 @@
                     <form method="post" action="{{ request.path }}" enctype="multipart/form-data">
                         {% csrf_token %} 
                         {% include 'profile_form.html' %}
+                        <input type="hidden" name="action" value="update">
+
 
                         <input type="submit" class="btn btn-outline-success custom-outline" value="Update">
                     </form>
@@ -98,10 +100,11 @@
                 </div>
             
                 <div class="modal-body">
-                    <form action="#" onsubmit="return false;">
+                    <form id="create-profile-form" method="post" action="{{ request.path }}" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% include 'profile_form.html' %}
                         {% include 'pin_form.html' %}
+                        <input type="hidden" name="action" value="create">
 
                         <button type="submit" class="btn btn-outline-info custom-outline">Create Profile</button>
                     </form>

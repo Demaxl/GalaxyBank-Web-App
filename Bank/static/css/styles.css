@@ -85,11 +85,7 @@ footer {
   border-color: #674ea3 !important;
   color: #a173d1 !important;
 }
-.custom-outline:hover {
-  background-color: #a173d1 !important; /* Replace with your desired color */
-  color: #FFFFFF !important; /* Replace with your desired color */
-}
-.custom-outline:active {
+.custom-outline:hover, .custom-outline:active, .custom-outline:focus {
   background-color: #a173d1 !important; /* Replace with your desired color */
   color: #FFFFFF !important; /* Replace with your desired color */
 }
@@ -128,6 +124,6 @@ footer {
   text-align: center;
 }
 
-#profile-image {
+.profile-image {
   display: none;
 }/*# sourceMappingURL=styles.css.map */

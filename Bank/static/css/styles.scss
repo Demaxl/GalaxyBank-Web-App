@@ -92,18 +92,11 @@ body {
 	border-color: $gradient-dark-color!important;
 	color: $gradient-light-color!important;
 
-	&:hover {
+	&:hover, &:active, &:focus {
 		// background: $gradient-color!important;
 		background-color: $gradient-light-color!important; /* Replace with your desired color */
 		color: #FFFFFF!important; /* Replace with your desired color */
 	};
-
-
-	&:active {
-		// background: $gradient-color!important;
-		background-color: $gradient-light-color!important; /* Replace with your desired color */
-		color: #FFFFFF!important; /* Replace with your desired color */
-	}
 }
 
 .image-container {
@@ -146,6 +139,6 @@ body {
 	text-align: center;
 }
 
-#profile-image {
+.profile-image {
 	display: none;
 }

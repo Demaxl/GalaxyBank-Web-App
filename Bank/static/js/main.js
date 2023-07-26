@@ -4,10 +4,7 @@ function message(text, type) {
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             ${text}
         </div>`)
-}
-$(function () {
-    
-});
+};
 
 
 $(function () {
@@ -74,10 +71,9 @@ $(function () {
     });
     
 
-    $("#profile-image").change(function (e) { 
+    $(".profile-image").change(function (e) { 
         var file = this.files[0];
 
-        console.log(typeof file.type);
         if (!file.type.startsWith("image")) {
             return
         }
@@ -89,12 +85,6 @@ $(function () {
 
         img.src = URL.createObjectURL(file)
 
-        // img.onload = () => {
-        //     URL.revokeObjectURL(img.src);
-        // }
-
-        console.log(img);
-
         $(".image-container img").remove()
 
         $(".image-container").prepend(img)
@@ -102,10 +92,36 @@ $(function () {
     });
     
     $(".image-container").click(function () {
-        document.getElementById("profile-image").click()
+        this.getElementsByClassName("profile-image")[0].click()
         
     })
 
+    $("#create-profile-form").submit(function (e) { 
+        const newPin = $(this).find("#new-pin").val();
+        const confirmPin = $(this).find("#confirm-new-pin").val();
+        const submitBtn = $(this).find("button")
+        var invalid = false;
+
+        
+
+        if (newPin !== confirmPin) {
+            $(this).find("#confirm-new-pin").addClass("is-invalid");
+            invalid = true;
+        } else {
+            $(this).find("#confirm-new-pin").removeClass("is-invalid");
+        }
+
+        if (!invalid) {
+
+            submitBtn.html(`<span class="spinner-border spinner-border-lg"></span>`).attr("disabled", true);
+           
+            // submitBtn.html("Create Profile");
+            // submitBtn.attr("disabled", false);
+        } else {
+            return false;
+        }
+        
+    });
 
 
 });
