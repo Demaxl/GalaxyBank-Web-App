@@ -48,6 +48,14 @@
                     </ul>
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">New Transaction</a>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="{% url 'deposit' %}">Deposit</a></li>
+                              <li><a class="dropdown-item" href="#">Withdrawal</a></li>
+                              <li><a class="dropdown-item" href="#">Transfer</a></li>
+                            </ul>
+                          </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'profile' user.username %}">Profile</a>
                             </li>
@@ -77,22 +85,6 @@
                 {% endfor %}
             {% endif %}
                 {% block body %}{% endblock body %}
-
-                    
-            {% comment %} <!-- Create Profile Modal -->
-            <div class="modal fade" id="create-profile-modal" data-backdrop="static">
-                <div class="modal-dialog modal-xl modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Complete your Profile</h4>
-                        </div>
-                    
-                        <div class="modal-body">
-                            {{ createForm|crispy }}
-                        </div>
-                    </div>
-                </div>
-            </div> {% endcomment %}
 
         </main>
 
