@@ -2,6 +2,8 @@
 
 {% block body %}
     <section class="balance">
+        <h1 class=" mb-3">Welcome {{ user }}</h1>
+        <hr>
         <h2>Your Balance</h2>
         <h3>${{ user.profile.balance|floatformat:2  }}</h3>
     </section>

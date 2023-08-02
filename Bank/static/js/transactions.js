@@ -8,11 +8,13 @@ $(function () {
     });
 
 
-    $("#deposit-btn").click(function (e) {
+    $(".transact-btn").click(function (e) {
         e.preventDefault();
         
-        document.getElementById("pin").focus()
-        $("#deposit-submit-btn").text(`Deposit $${amount.val()}`)
+        const action = this.dataset.action;
+
+        document.getElementById("pin").focus();
+        $(".transact-submit-btn").text(`${action} $${amount.val()}`)
     });
     
 

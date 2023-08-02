@@ -22,18 +22,20 @@
     </style>
 
     <div class="container my-auto w-50  align-self-center">
-        <h1 class="text-center">Deposit</h1>
+        <h1 class="text-center">Withdraw</h1>
+        <div class="alert alert-info">Balance: ${{ request.user.profile.balance }}</div>
         <form id="depositForm" method="post">
             {% csrf_token %}
-            
-            {% comment %} <input type="hidden" name="action" id="action" value="Deposit"> {% endcomment %}
+
             <label for="amount" class="form-label">Amount:</label>
+
             <div class="input-group input-group-lg">
                 <span class="input-group-text">$</span>
                 <input type="number" id="amount" name="amount" class="form-control" min="10" value="10" placeholder="Enter the amount to deposit" required>
             </div>
-            <button class="btn btn-success d-block w-100 my-3 transact-btn"  data-action="Deposit"
-                id="deposit-btn" data-bs-toggle="modal" data-bs-target="#transaction-pin-modal">Deposit</button>
+
+            <button class="btn btn-success d-block w-100 my-3 transact-btn" data-action="Withdraw"
+             data-bs-toggle="modal" data-bs-target="#transaction-pin-modal">Withdraw</button>
 
                 {% include 'pin_modal.html' %}
 

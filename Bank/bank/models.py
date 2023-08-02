@@ -45,7 +45,6 @@ class Transaction(models.Model):
 
         if (self.type != self.DEPOSIT) and (self.amount > self.user.profile.balance):
             raise ValidationError(
-                {"amount": _("Insufficient funds in user account")}
-            )
+                {"amount": _("Insufficient funds in user account")}, code="Insufficient funds")
 
    
