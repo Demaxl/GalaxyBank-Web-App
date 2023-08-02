@@ -8,7 +8,7 @@ function message(text, type) {
 
 
 $(function () {
-    $("#old-pin, #new-pin, #confirm-new-pin").on("input", function () {
+    $("#old-pin, #new-pin, #confirm-new-pin #pin").on("input", function () {
         this.value = this.value.replace(/[^0-9]/g, ''); 
     });
 

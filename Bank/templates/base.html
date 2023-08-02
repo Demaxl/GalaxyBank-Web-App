@@ -36,26 +36,29 @@
                             <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'accounts' %}active{% endif %}" href="#">Accounts</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'deposit' %}active{% endif %}" href="{% url 'deposit' %}">Deposit</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'transactions' %}active{% endif %}" href="#">Transactions</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'withdraw' %}active{% endif %}" href="#">Withdraw</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'settings' %}active{% endif %}" href="#">Settings</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'transfer' %}active{% endif %}" href="#">Transfer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'history' %}active{% endif %}" href="#">Transaction History</a>
                         </li>
                         
                     </ul>
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">New Transaction</a>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{% url 'deposit' %}">Deposit</a></li>
-                              <li><a class="dropdown-item" href="#">Withdrawal</a></li>
-                              <li><a class="dropdown-item" href="#">Transfer</a></li>
-                            </ul>
-                          </li>
+                            {% comment %} <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">New Transaction</a>
+                                <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'deposit' %}">Deposit</a></li>
+                                <li><a class="dropdown-item" href="#">Withdrawal</a></li>
+                                <li><a class="dropdown-item" href="#">Transfer</a></li>
+                                </ul>
+                            </li> {% endcomment %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'profile' user.username %}">Profile</a>
                             </li>

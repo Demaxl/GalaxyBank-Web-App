@@ -90,6 +90,15 @@ footer {
   color: #FFFFFF !important; /* Replace with your desired color */
 }
 
+.custom-btn {
+  background-color: #a173d1 !important; /* Replace with your desired color */
+  border-color: #a173d1 !important;
+  color: #FFFFFF !important; /* Replace with your desired color */
+}
+.custom-btn:hover, .custom-btn:active, .custom-btn:focus {
+  background-color: #674ea3 !important; /* Replace with your desired color */
+}
+
 .image-container {
   position: relative;
   width: 50%;

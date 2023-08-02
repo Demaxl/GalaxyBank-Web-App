@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 
 {% block body %}
@@ -21,11 +23,22 @@
 
     <div class="container my-auto w-50  align-self-center">
         <h1 class="text-center">Deposit</h1>
-        <form id="depositForm">
+        <form id="depositForm" method="post">
             {% csrf_token %}
+
             <label for="amount" class="form-label">Amount:</label>
-            <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter the amount to deposit" required>
-            <button class="btn btn-success d-block w-100 my-3" type="submit">Deposit</button>
+            <div class="input-group input-group-lg">
+                <span class="input-group-text">$</span>
+                <input type="number" id="amount" name="amount" class="form-control" min="10" value="10" placeholder="Enter the amount to deposit" required>
+            </div>
+            <button class="btn btn-success d-block w-100 my-3" 
+                id="deposit-btn" data-bs-toggle="modal" data-bs-target="#transaction-pin-modal">Deposit</button>
+
+                {% include 'pin_modal.html' %}
+
         </form>
     </div>
+
+
+    <script src="{% static 'js/transactions.js' %}"></script>
 {% endblock body %}

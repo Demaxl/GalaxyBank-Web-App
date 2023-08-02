@@ -99,6 +99,18 @@ body {
 	};
 }
 
+.custom-btn {
+	background-color: $gradient-light-color!important; /* Replace with your desired color */
+	border-color: $gradient-light-color!important;
+
+	color: #FFFFFF!important; /* Replace with your desired color */
+	
+	&:hover, &:active, &:focus {
+		// background: $gradient-color!important;
+		background-color: $gradient-dark-color!important; /* Replace with your desired color */
+	};
+}
+
 .image-container {
 	position: relative;
 	width: 50%;
