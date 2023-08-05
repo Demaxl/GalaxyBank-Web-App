@@ -6,15 +6,22 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from decimal import Decimal
+from django.db.models import Q
 
 from .models import Transaction
 from pprint import pprint
 
 class HomePageView(View):
     def get(self, request):
-        return render(request, "home.html", {
-            "active_page": "home"
-        })
+        context = {}
+
+        user = request.user        
+        if user.is_authenticated:
+            transactions = Transaction.objects.filter(Q(user=user) | Q(receiver=user))
+            context["received_transactions"] = user.received_transactions.all()
+            context["transactions"] = transactions
+
+        return render(request, "home.html", context)
 
 class DepositView(LoginRequiredMixin, View):
     def get(self, request):

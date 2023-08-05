@@ -5,25 +5,38 @@
         <h1 class=" mb-3">Welcome {{ user }}</h1>
         <hr>
         <h2>Your Balance</h2>
-        <h3>${{ user.profile.balance|floatformat:2  }}</h3>
+        <div class="alert alert-info">
+            <h3>${{ user.profile.balance|floatformat:2  }}</h3>
+        </div>
     </section>
 
     <section class="recent-transactions">
         <h2>Recent Transactions</h2>
-        <ul>
-        <li>
-            <span class="transaction-type">Deposit</span>
-            <span class="transaction-amount">+$500</span>
-        </li>
-        <li>
-            <span class="transaction-type">Withdrawal</span>
-            <span class="transaction-amount">-$200</span>
-        </li>
-        <li>
-            <span class="transaction-type">Transfer</span>
-            <span class="transaction-amount">-$1000</span>
-        </li>
-        <!-- Add more transaction items here -->
+        <ul class="transaction-list">
+            {% for transaction in transactions %}
+                <li>
+                    <span class="transaction-type" data-alert=
+                    {% if transaction.getAlert == "Transfer" %}
+                        {% if transaction in received_transactions %}Credit{% else %}Debit{% endif %}
+                    {% else %}
+                        {{ transaction.getAlert }}
+                    {% endif %}>
+                        {{ transaction.type|title }}</span>
+                    <span class="transaction-amount">${{ transaction.amount }}</span>
+                </li>
+            {% empty %}
+                <li>Your recent transactions will appear here</li>
+            {% endfor %}
+            
+            {% comment %} <li>
+                <span class="transaction-type">Withdrawal</span>
+                <span class="transaction-amount">-$200</span>
+            </li>
+            <li>
+                <span class="transaction-type">Transfer</span>
+                <span class="transaction-amount">-$1000</span>
+            </li> {% endcomment %}
+            <!-- Add more transaction items here -->
         </ul>
     </section>
 {% endblock body %}

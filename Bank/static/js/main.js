@@ -8,6 +8,20 @@ function message(text, type) {
 
 
 $(function () {
+    $(".transaction-list li").each(function (index, element) {
+        // element == this
+        const amount = $(this).find(".transaction-amount");
+        const type = $(this).find(".transaction-type").data("alert");
+
+        amount.text(function (i, original) {
+            return `${(type == "Credit") ? "+":"-"}${original}`
+        })
+        
+        amount.addClass(`text-${ (type == "Credit") ? "success":"danger" }`);
+    });
+    
+
+
     $("#old-pin, #new-pin, #confirm-new-pin #pin").on("input", function () {
         this.value = this.value.replace(/[^0-9]/g, ''); 
     });
