@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse 
+from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -65,3 +65,21 @@ class WithdrawView(LoginRequiredMixin, View):
             messages.success(request, f"You have successfully withdrawn ${amount} from your account")
 
         return redirect("home")
+    
+class TransferView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, "transfer.html")
+    
+class API:
+    @staticmethod
+    def suggest(request):
+        input_user = request.GET.get("user")
+
+        suggested_users = User.objects.filter(username__icontains=input_user)
+
+        data = {}
+        for user in suggested_users:
+            data[user.username] = [user.profile.first_name + " " + user.profile.last_name, user.profile.image.url]
+
+        return JsonResponse(data)
+

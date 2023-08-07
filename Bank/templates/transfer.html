@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+    <body class="vh-100 d-flex flex-column">    
+        <style>
+            label {
+                display: block;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+
+            input[type="number"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .list-group{
+                max-height: 200px;
+                margin-bottom: 10px;
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+        </style>
+
+        <div class="container my-auto w-50  align-self-center">
+            <h1 class="text-center">Transfer</h1>
+            <div class="alert alert-info">Balance: ${{ request.user.profile.balance }}</div>
+            <form id="transferForm" method="post">
+                {% csrf_token %}
+
+                <div class="my-3">
+                    <label for="receiver" class="form-label">Receiver</label>
+                    <input type="text" name="receiver" id="receiver" placeholder="Enter receiver username" class="form-control form-control-lg" data-api-url="{% url 'suggest' %}">
+                    <div class="list-group suggested-receivers">
+                        {% comment %} <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                            <div class="d-flex w-100 justify-content-start">
+                                <img src="../media/default.jpg" alt="user image" width="45" height="45" class="rounded-circle">
+                                <button type="button" class="btn">A second item</button>    
+                            </div>
+                        </a>     {% endcomment %}
+                    </div>
+
+                </div>
+
+                <label for="amount" class="form-label">Amount:</label>
+
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text">$</span>
+                    <input type="number" id="amount" name="amount" class="form-control" min="10" value="10" placeholder="Enter the amount to deposit" required>
+                </div>
+
+                <button class="btn btn-success d-block w-100 my-3 transact-btn" data-action="Transfer"
+                data-bs-toggle="modal" data-bs-target="#transaction-pin-modal">Transfer</button>
+
+                {% include 'pin_modal.html' %}
+
+            </form>
+        </div>
+    
+
+        <script src="{% static 'js/transactions.js' %}"></script>
+    </body>
+{% endblock body %}
