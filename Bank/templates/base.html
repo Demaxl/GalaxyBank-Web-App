@@ -45,7 +45,7 @@
                             <a class="nav-link {% if request.resolver_match.url_name == 'transfer' %}active{% endif %}" href="{% url 'transfer' %}">Transfer</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'history' %}active{% endif %}" href="#">Transaction History</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'history' %}active{% endif %}" href="{% url 'history' %}">Transaction History</a>
                         </li>
                         
                     </ul>

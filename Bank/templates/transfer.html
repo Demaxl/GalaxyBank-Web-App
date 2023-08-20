@@ -35,7 +35,8 @@
 
                 <div class="my-3">
                     <label for="receiver" class="form-label">Receiver</label>
-                    <input type="text" name="receiver" id="receiver" placeholder="Enter receiver username" class="form-control form-control-lg" data-api-url="{% url 'suggest' %}">
+                    <input type="search" name="receiver" id="receiver" placeholder="Enter receiver username" class="form-control form-control-lg" data-api-url="{% url 'suggest' %}" data-request-user={{ user.username }}>
+                    <div class="invalid-feedback">Please choose a valid receiver</div>
                     <div class="list-group suggested-receivers">
                         {% comment %} <a href="#" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-start">
@@ -54,8 +55,9 @@
                     <input type="number" id="amount" name="amount" class="form-control" min="10" value="10" placeholder="Enter the amount to deposit" required>
                 </div>
 
-                <button class="btn btn-success d-block w-100 my-3 transact-btn" data-action="Transfer"
-                data-bs-toggle="modal" data-bs-target="#transaction-pin-modal">Transfer</button>
+                <button class="btn btn-success d-block w-100 my-3 transact-btn" data-action="Transfer">Transfer</button>
+                <input type="hidden" id="trigger-pin-modal" data-bs-toggle="modal" data-bs-target="#transaction-pin-modal">
+                
 
                 {% include 'pin_modal.html' %}
 

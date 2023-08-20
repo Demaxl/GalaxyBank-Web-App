@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from django.views.generic import View
+from django.views.generic import View, ListView, DetailView
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,7 +17,7 @@ class HomePageView(View):
 
         user = request.user        
         if user.is_authenticated:
-            transactions = Transaction.objects.filter(Q(user=user) | Q(receiver=user))
+            transactions = Transaction.objects.filter(Q(user=user) | Q(receiver=user)).order_by("-time")[:3]
             context["received_transactions"] = user.received_transactions.all()
             context["transactions"] = transactions
 
@@ -70,12 +70,37 @@ class TransferView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "transfer.html")
     
+    def post(self, request):
+        user = request.user
+        amount = request.POST['amount']
+        pin = request.POST['pin']
+        receiver = User.objects.get(username=request.POST['receiver'])
+
+        if user.profile.pin != pin:
+            messages.error(request, "Invalid transaction pin")
+            return redirect("transfer")
+    
+        try:
+            tr = Transaction.objects.create(type="transfer", amount=Decimal(amount), user=user, receiver=receiver)
+        except ValidationError as err:
+            messages.error(request, "<strong>Insufficient funds!</strong> Your transaction could not be processed due to insufficient funds in your account")
+            return redirect("transfer")
+        
+        messages.success(request, f"You have successfully transfer ${amount} to {receiver.username}")
+        return redirect("home")
+    
+class TransactionsListView(ListView):
+    model = Transaction
+    context_object_name = "transactions"
+    template_name = "transactions_history.html"
+
 class API:
     @staticmethod
     def suggest(request):
         input_user = request.GET.get("user")
+        current_user = request.GET.get("requestUser")
 
-        suggested_users = User.objects.filter(username__icontains=input_user)
+        suggested_users = User.objects.filter(username__icontains=input_user).exclude(username=current_user)
 
         data = {}
         for user in suggested_users:
