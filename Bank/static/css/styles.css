@@ -135,4 +135,8 @@ footer {
 
 .profile-image {
   display: none;
+}
+
+.transaction-list {
+  cursor: pointer;
 }/*# sourceMappingURL=styles.css.map */

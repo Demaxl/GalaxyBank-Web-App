@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <section class="recent-transactions">
+        <div class="container">
+            {% if transaction.type == "transfer" %}
+                <h1 class="display-3 mb-5">Transfer to {{ transaction.receiver }}</h1>
+            {% else %}
+                <h1 class="display-3 mb-5">{{ transaction|title }}</h1>
+            {% endif %}
+
+            <div class="row">
+                {% if transaction.type == "transfer" %}
+                    <div class="col col-sm-12 col-lg-6">
+                            <p class="h4 my-4">Sender <br> <strong>{{ transaction.user }}</strong></p>
+                            <p class="h4 my-4">Receiver <br> <strong>{{ transaction.receiver }}</strong></p>
+                    </div>
+                {% endif %}
+        
+                <div class="col col-sm-12 col-lg-6">
+                    <h4 class="transaction-amount-div my-4">
+                        <span class="transaction-type" data-alert=
+                            {% if transaction.getAlert == "Transfer" %}
+                                {% if transaction in received_transactions %}Credit{% else %}Debit{% endif %}
+                            {% else %}
+                                {{ transaction.getAlert }}
+                            {% endif %}>Amount </span>
+                            <br>
+                        <span class="transaction-amount" style="float:none">${{ transaction.amount }}</span>
+                    </h4>
+                    <p class="h4">Time <br> <strong>{{ transaction.time }}</strong></p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock body %}

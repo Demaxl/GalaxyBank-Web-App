@@ -8,7 +8,7 @@ function message(text, type) {
 
 
 $(function () {
-    $(".transaction-list li").each(function (index, element) {
+    $(".transaction-list li, .transaction-amount-div").each(function (index, element) {
         // element == this
         const amount = $(this).find(".transaction-amount");
         const type = $(this).find(".transaction-type").data("alert");
@@ -136,6 +136,5 @@ $(function () {
         }
         
     });
-
 
 });

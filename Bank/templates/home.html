@@ -14,7 +14,7 @@
         <h2>Recent Transactions</h2>
         <ul class="transaction-list">
             {% for transaction in transactions %}
-                <li>
+                <li onclick="window.location.href = '{% url 'transaction_detail' transaction.id %}'">
                     <span class="transaction-type" data-alert=
                     {% if transaction.getAlert == "Transfer" %}
                         {% if transaction in received_transactions %}Credit{% else %}Debit{% endif %}

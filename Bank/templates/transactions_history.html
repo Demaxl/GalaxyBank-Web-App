@@ -6,7 +6,7 @@
         <h2>Transactions</h2>
         <ul class="transaction-list">
             {% for transaction in transactions %}
-                <li>
+                <li onclick="window.location.href='{% url 'transaction_detail' transaction.id %}'" class="transaction-list">
                     <span class="transaction-type" data-alert=
                     {% if transaction.getAlert == "Transfer" %}
                         {% if transaction in received_transactions %}Credit{% else %}Debit{% endif %}
@@ -19,16 +19,34 @@
             {% empty %}
                 <li>Your recent transactions will appear here</li>
             {% endfor %}
-            
-            {% comment %} <li>
-                <span class="transaction-type">Withdrawal</span>
-                <span class="transaction-amount">-$200</span>
-            </li>
-            <li>
-                <span class="transaction-type">Transfer</span>
-                <span class="transaction-amount">-$1000</span>
-            </li> {% endcomment %}
-            <!-- Add more transaction items here -->
         </ul>
+
+        {% if is_paginated %}
+            <div class="text-center">
+                
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info custom-outline mb-4" href="?page=1" title="First page"><<</a>
+                    <a class="btn btn-outline-info custom-outline mb-4" href="?page={{ page_obj.previous_page_number }}" title="Previous page"><</a>
+                {% endif %}
+                
+                <!-- Loop through all the pages -->
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="btn btn-info custom-btn mb-4" href="?page={{ num }}">{{ num }}</a> 
+
+                    <!-- This is basically checking if the number is with the range 2 <= num <= 2 -->
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:"3" %}
+                        <a class="btn btn-outline-info custom-outline mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a class="btn btn-outline-info custom-outline mb-4" href="?page={{ page_obj.next_page_number }}" title="Next page">></a>
+                    <a class="btn btn-outline-info custom-outline mb-4" href="?page={{ page_obj.paginator.num_pages }}" title="Last page">>></a>
+
+                {% endif %}
+            </div>
+        {% endif %}
+        
     </section>
 {% endblock body %}

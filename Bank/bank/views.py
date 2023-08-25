@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View, ListView, DetailView
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import ValidationError
 from decimal import Decimal
 from django.db.models import Q
@@ -11,7 +11,7 @@ from django.db.models import Q
 from .models import Transaction
 from pprint import pprint
 
-class HomePageView(View):
+class HomePageView(LoginRequiredMixin, View):
     def get(self, request):
         context = {}
 
@@ -89,10 +89,37 @@ class TransferView(LoginRequiredMixin, View):
         messages.success(request, f"You have successfully transfer ${amount} to {receiver.username}")
         return redirect("home")
     
-class TransactionsListView(ListView):
+class TransactionsListView(LoginRequiredMixin, ListView):
     model = Transaction
     context_object_name = "transactions"
+    ordering = ["-time"]
     template_name = "transactions_history.html"
+
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Transaction.objects.filter(Q(user=self.request.user) | Q(receiver=self.request.user)).order_by("-time")
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['received_transactions'] = self.request.user.received_transactions.all()
+
+        return context
+
+class TransactionsDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Transaction
+    context_object_name = "transaction"
+    template_name = "transactions_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['received_transactions'] = self.request.user.received_transactions.all()
+
+        return context
+
+    def test_func(self) -> bool | None:
+        transaction = self.get_object()
+        return (self.request.user == transaction.user ) or (self.request.user == transaction.receiver)
 
 class API:
     @staticmethod
